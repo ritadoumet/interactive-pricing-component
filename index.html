@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap"
+    rel="stylesheet">
+  <title>Rita Doumet | Interactive pricing component</title>
+  <style>
+    * {
+      font-family: 'Manrope';
+      box-sizing: border-box;
+      color: hsl(225, 20%, 60%)
+    }
+
+    body {
+      background-image: url("images/bg-pattern.svg");
+      background-repeat: no-repeat;
+      background-color: white;
+      background: url("images/pattern-circles.svg") top center no-repeat, url("images/bg-pattern.svg") no-repeat, white;
+
+    }
+
+    #top {
+      width: max-content;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      color: hsl(227, 35%, 25%);
+      margin: 50px auto 0px auto;
+    }
+
+    main {
+      width: 45%;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: -5px 5px 20px rgba(133, 143, 173, 0.3);
+    }
+
+    button {
+      background-color: hsl(227, 35%, 25%);
+      color: white;
+      font-family: 'Manrope';
+      border-radius: 22px;
+      border: none;
+      height: fit-content;
+      padding: 12px;
+      width: 200px;
+    }
+
+    div#billing {
+      margin-top: 10px;
+      float: right;
+    }
+
+    div#billing * {
+      display: inline-block;
+      margin-left: 5px;
+    }
+
+    #bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      clear: right;
+    }
+
+    ul {
+      list-style-image: url("images/icon-check.svg");
+      width: auto;
+      display: inline-block;
+
+    }
+
+    input[type="range"] {
+      appearance: none;
+      width: 100%;
+      -webkit-appearance: none
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+      border-radius: 5px;
+      background-color: transparent;/*hsl(224, 65%, 95%);*/
+      height: 10px;
+    }
+
+    #progress-color {
+      width: 50%;
+      height: 7px;
+      background-color: black;
+      
+    }
+    hr{
+      background-color: hsl(224, 65%, 95%);
+      opacity:0.3;
+      width: 100%;
+    }
+    #price1 {
+      font-size: 50px;
+      position: relative;
+      top: -15px;
+      font-weight: 800;
+      color: hsl(227, 35%, 25%);
+    }
+
+    #discount {
+      color: hsl(15, 100%, 70%);
+      background-color: rgba(255, 140, 102, 0.1);
+      border-radius: 10px;
+      padding: 2px 7px;
+
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background-color: hsl(174, 86%, 45%);
+      box-shadow: 0px 7px 15px rgba(16, 213, 194, 0.6);
+      width: 35px;
+      height: 35px;
+      -webkit-transition: .2s;
+      /* 0.2 seconds transition on hover */
+      transition: background-color .2s;
+      background-image: url(images/icon-slider.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      transform: translate(0, calc(-50% + 3.5px));
+      border-radius: 100%;
+      cursor: pointer;
+    }
+
+    input[type=range]::-moz-range-thumb {
+      background-color: hsl(174, 86%, 45%);
+      box-shadow: 0px 7px 15px rgba(16, 213, 194, 0.6);
+      width: 35px;
+      height: 35px;
+      border:none;
+      /* 0.2 seconds transition on hover */
+      transition: background-color .2s;
+      background-image: url(images/icon-slider.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 100%;
+      cursor: pointer;
+    }
+    input[type=range]::-moz-range-thumb:hover{
+      background-color: hsl(175, 54%, 53%)
+    }
+    input[type='range']::-moz-range-track{
+      border-radius: 5px;
+      background-color: hsl(224, 65%, 95%);
+      height: 10px;
+    }
+
+    input[type='range']::-webkit-slider-thumb:hover {
+      background-color: hsl(175, 54%, 53%)
+    }
+
+    input[type=range]::-webkit-fill-lower {
+      background-color: hsl(174, 77%, 80%);
+      -webkit-appearance: none;
+    }
+
+    input[type=range]::-moz-range-progress {
+      background-color: hsl(174, 77%, 80%);
+      -webkit-appearance: none;
+      height:10px;
+      border-radius:5px;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+
+    #toggle {
+      width: 35px;
+      height: 20px;
+      position: relative;
+      transition: background-color 0.2s;
+      top: 4px;
+      border-radius: 10px;
+      background-color: hsl(224, 65%, 95%);
+    }
+
+    #toggle_circle {
+      width: 12px;
+      margin: 4px;
+      transition: float 0.5s;
+      height: 12px;
+      background-color: white;
+      border-radius: 50%;
+    }
+
+    #price {
+      display: flex;
+      font-weight: 800;
+      justify-content: space-between;
+    }
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+
+    @media screen and (max-width: 900px) {
+      main {
+        width: 90%;
+      }
+
+      #bottom {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+
+      #bottom ul {
+        display: block;
+        width: 100%;
+      }
+
+      #bottom ul li {
+        width: fit-content;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      #pageviews {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+
+      #range {
+        margin: 50px auto;
+        width: 80%;
+      }
+
+      div#billing {
+        margin: 0 auto 0 auto;
+        width: fit-content;
+        float: none;
+      }
+    }
+    @media screen and (max-width: 440px) {
+      #top{
+        font-size: 4vw;
+      }
+      #top h1{
+        font-size: 6vw;
+      }
+      button{
+        width: 80%;
+      }
+      #price1{
+        font-size: 10vw;
+      }
+    }
+  </style>
+</head>
+
+<body onresize="changeDisplayCSS()">
+  <div id="top">
+    <h1>Simple, traffic-based pricing</h1>
+    <p>Sign-up for our 30-day trial. No credit card required.</p>
+  </div>
+  <main>
+    <p id="price">
+      <span id="pageviews">100K PAGEVIEWS</span> 
+      <span id="priceContainer">
+        <span id="price1"></span>
+        <span style="vertical-align:top;">/month</span>
+      </span>
+    </p>
+    <input type="range" oninput="changeRange()" min="0" max="30" value="50%" id="range">
+    <div id="billing">
+      <span>Monthly Billing</span>
+      <div id="toggle" onclick="changeBilling(this)" onmouseover="hoverBilling(this)" onmouseout="unhoverBilling(this)">
+        <span id="toggle_circle"></span>
+      </div><span>Yearly Billing</span>
+      <p id="discount">25% discount</p>
+    </div>
+    <hr>
+    <div id="bottom">
+      <ul id="info">
+        <li>Unlimited websites</li>
+        <li>100% data ownership</li>
+        <li>Email reports</li>
+      </ul><button type="button">Start my trial</button>
+    </div>
+  </main>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by <a
+      href="#">Rita Doumet</a>.
+  </div>
+  <script>
+    let billing = 0; //0 is monthly, 1 is yearly
+    let range = 15;
+    let nd = document.getElementById("range");
+    let pageviews = document.getElementById("pageviews");
+    let priceContainer = document.getElementById("priceContainer");
+    let main = document.getElementsByTagName("Main")[0];
+    console.log(nd.value/30*100);
+
+    var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    var isBlink = (isChrome || isOpera) && !!window.CSS;
+    if (isBlink || navigator.userAgent.indexOf("Chrome")!=-1){
+      nd.style.background="linear-gradient(to right, hsl(174, 77%, 80%) "+nd.value/30*100+"%, hsl(224, 65%, 95%) "+nd.value/30*100+"%)";
+    }
+    nd.style.borderRadius="5px";
+    changeRange();
+    function changeBilling(elt) {
+      billing = (billing == 0) ? 1 : 0;
+      document.getElementById("toggle_circle").style.float = (billing == 0) ? "left" : "right";
+      console.log(billing);
+      elt.style.backgroundColor = (billing == 0) ? "hsl(224, 65%, 95%)" : "hsl(174, 86%, 45%)";
+    }
+    function hoverBilling(elt) {
+      elt.style.backgroundColor = "hsl(174, 77%, 80%)";
+    }
+    function unhoverBilling(elt) {
+      if (billing == 0)
+        elt.style.backgroundColor = "hsl(224, 65%, 95%)";
+      else
+        elt.style.backgroundColor = "hsl(174, 86%, 45%)";
+    }
+
+    function changeRange() {
+      range = document.getElementById("range").value;
+      if (isBlink || navigator.userAgent.indexOf("Chrome")!=-1){
+        nd.style.background="linear-gradient(to right, hsl(174, 77%, 80%) "+nd.value/30*100+"%, hsl(224, 65%, 95%) "+nd.value/30*100+"%)";
+      }
+      document.getElementById("price1").innerHTML = '$' + range + '.00';
+      if (range == 0) {
+        document.getElementsByTagName("button")[0].style.color = "grey";
+        document.getElementsByTagName("button")[0].type = '';
+        document.getElementsByTagName("button")[0].style.cursor = "default";
+
+      }
+      else {
+        document.getElementsByTagName("button")[0].style.color = "hsl(224, 65%, 95%)";
+        document.getElementsByTagName("button")[0].type = 'button';
+        document.getElementsByTagName("button")[0].style.cursor = "pointer";
+      }
+    }
+
+    function changeDisplayCSS(){
+      
+     if (document.body.clientWidth <= 900) {
+      nd.style.display="block";
+      pageviews.style.display="block";
+      priceContainer.style.display="block";
+      priceContainer.style.textAlign="center";
+      priceContainer.childNodes[3].style.verticalAlign="center";// "/month
+      main.insertBefore(priceContainer, main.childNodes[0]);
+      main.insertBefore(nd, main.childNodes[0]);
+      main.insertBefore(pageviews, main.childNodes[0]);
+      }
+      else{
+      main.removeChild(nd);
+      main.removeChild(document.getElementById("price"));
+      let pelement = document.createElement("p");
+      pelement.id="price";
+      pelement.appendChild(pageviews);
+      pelement.appendChild(priceContainer);
+      main.insertBefore(nd, main.childNodes[0]);
+      main.insertBefore(pelement, main.childNodes[0])
+    }
+    }
+    changeDisplayCSS();
+  </script>
+</body>
+
+</html>
