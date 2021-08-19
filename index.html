@@ -93,7 +93,8 @@
 
     input[type=range]::-webkit-slider-runnable-track {
       border-radius: 5px;
-      background-color: transparent;/*hsl(224, 65%, 95%);*/
+      background-color: transparent;
+      /*hsl(224, 65%, 95%);*/
       height: 10px;
     }
 
@@ -101,13 +102,15 @@
       width: 50%;
       height: 7px;
       background-color: black;
-      
+
     }
-    hr{
+
+    hr {
       background-color: hsl(224, 65%, 95%);
-      opacity:0.3;
+      opacity: 0.3;
       width: 100%;
     }
+
     #price1 {
       font-size: 50px;
       position: relative;
@@ -146,7 +149,7 @@
       box-shadow: 0px 7px 15px rgba(16, 213, 194, 0.6);
       width: 35px;
       height: 35px;
-      border:none;
+      border: none;
       /* 0.2 seconds transition on hover */
       transition: background-color .2s;
       background-image: url(images/icon-slider.svg);
@@ -155,10 +158,12 @@
       border-radius: 100%;
       cursor: pointer;
     }
-    input[type=range]::-moz-range-thumb:hover{
+
+    input[type=range]::-moz-range-thumb:hover {
       background-color: hsl(175, 54%, 53%)
     }
-    input[type='range']::-moz-range-track{
+
+    input[type='range']::-moz-range-track {
       border-radius: 5px;
       background-color: hsl(224, 65%, 95%);
       height: 10px;
@@ -176,8 +181,8 @@
     input[type=range]::-moz-range-progress {
       background-color: hsl(174, 77%, 80%);
       -webkit-appearance: none;
-      height:10px;
-      border-radius:5px;
+      height: 10px;
+      border-radius: 5px;
     }
 
     button:hover {
@@ -257,17 +262,21 @@
         float: none;
       }
     }
+
     @media screen and (max-width: 440px) {
-      #top{
+      #top {
         font-size: 4vw;
       }
-      #top h1{
+
+      #top h1 {
         font-size: 6vw;
       }
-      button{
+
+      button {
         width: 80%;
       }
-      #price1{
+
+      #price1 {
         font-size: 10vw;
       }
     }
@@ -281,10 +290,10 @@
   </div>
   <main>
     <p id="price">
-      <span id="pageviews">100K PAGEVIEWS</span> 
+      <span id="pageviews">100K PAGEVIEWS</span>
       <span id="priceContainer">
         <span id="price1"></span>
-        <span style="vertical-align:top;">/month</span>
+        <span style="vertical-align:top;" id="month_year">/month</span>
       </span>
     </p>
     <input type="range" oninput="changeRange()" min="0" max="30" value="50%" id="range">
@@ -309,27 +318,30 @@
       href="#">Rita Doumet</a>.
   </div>
   <script>
-    let billing = 0; //0 is monthly, 1 is yearly
+    let billing = 0; //0 is monthly, 1 is yearly;
+    let month_year = document.getElementById("month_year");
     let range = 15;
     let nd = document.getElementById("range");
     let pageviews = document.getElementById("pageviews");
     let priceContainer = document.getElementById("priceContainer");
     let main = document.getElementsByTagName("Main")[0];
-    console.log(nd.value/30*100);
+    console.log(nd.value / 30 * 100);
 
     var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
     var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
     var isBlink = (isChrome || isOpera) && !!window.CSS;
-    if (isBlink || navigator.userAgent.indexOf("Chrome")!=-1){
-      nd.style.background="linear-gradient(to right, hsl(174, 77%, 80%) "+nd.value/30*100+"%, hsl(224, 65%, 95%) "+nd.value/30*100+"%)";
+    if (isBlink || navigator.userAgent.indexOf("Chrome") != -1) {
+      nd.style.background = "linear-gradient(to right, hsl(174, 77%, 80%) " + nd.value / 30 * 100 + "%, hsl(224, 65%, 95%) " + nd.value / 30 * 100 + "%)";
     }
-    nd.style.borderRadius="5px";
+    nd.style.borderRadius = "5px";
     changeRange();
     function changeBilling(elt) {
       billing = (billing == 0) ? 1 : 0;
       document.getElementById("toggle_circle").style.float = (billing == 0) ? "left" : "right";
       console.log(billing);
       elt.style.backgroundColor = (billing == 0) ? "hsl(224, 65%, 95%)" : "hsl(174, 86%, 45%)";
+      month_year.innerHTML = (billing == 0) ? "/ month" : "/ year";
+      price1.innerHTML = (billing == 0) ? '$' + range + '.00' : '$' + (range * 12 * 0.75).toFixed(2);
     }
     function hoverBilling(elt) {
       elt.style.backgroundColor = "hsl(174, 77%, 80%)";
@@ -343,10 +355,11 @@
 
     function changeRange() {
       range = document.getElementById("range").value;
-      if (isBlink || navigator.userAgent.indexOf("Chrome")!=-1){
-        nd.style.background="linear-gradient(to right, hsl(174, 77%, 80%) "+nd.value/30*100+"%, hsl(224, 65%, 95%) "+nd.value/30*100+"%)";
+      if (isBlink || navigator.userAgent.indexOf("Chrome") != -1) {
+        nd.style.background = "linear-gradient(to right, hsl(174, 77%, 80%) " + nd.value / 30 * 100 + "%, hsl(224, 65%, 95%) " + nd.value / 30 * 100 + "%)";
       }
-      document.getElementById("price1").innerHTML = '$' + range + '.00';
+      price1.innerHTML = (billing == 0) ? '$' + range + '.00' : '$' + (range * 12 * 0.75).toFixed(2);
+      pageviews.innerHTML = Math.ceil(range * 6.66) + 'K PAGEVIEWS';
       if (range == 0) {
         document.getElementsByTagName("button")[0].style.color = "grey";
         document.getElementsByTagName("button")[0].type = '';
@@ -360,28 +373,28 @@
       }
     }
 
-    function changeDisplayCSS(){
-      
-     if (document.body.clientWidth <= 900) {
-      nd.style.display="block";
-      pageviews.style.display="block";
-      priceContainer.style.display="block";
-      priceContainer.style.textAlign="center";
-      priceContainer.childNodes[3].style.verticalAlign="center";// "/month
-      main.insertBefore(priceContainer, main.childNodes[0]);
-      main.insertBefore(nd, main.childNodes[0]);
-      main.insertBefore(pageviews, main.childNodes[0]);
+    function changeDisplayCSS() {
+
+      if (document.body.clientWidth <= 900) {
+        nd.style.display = "block";
+        pageviews.style.display = "block";
+        priceContainer.style.display = "block";
+        priceContainer.style.textAlign = "center";
+        priceContainer.childNodes[3].style.verticalAlign = "center";// "/month
+        main.insertBefore(priceContainer, main.childNodes[0]);
+        main.insertBefore(nd, main.childNodes[0]);
+        main.insertBefore(pageviews, main.childNodes[0]);
       }
-      else{
-      main.removeChild(nd);
-      main.removeChild(document.getElementById("price"));
-      let pelement = document.createElement("p");
-      pelement.id="price";
-      pelement.appendChild(pageviews);
-      pelement.appendChild(priceContainer);
-      main.insertBefore(nd, main.childNodes[0]);
-      main.insertBefore(pelement, main.childNodes[0])
-    }
+      else {
+        main.removeChild(nd);
+        main.removeChild(document.getElementById("price"));
+        let pelement = document.createElement("p");
+        pelement.id = "price";
+        pelement.appendChild(pageviews);
+        pelement.appendChild(priceContainer);
+        main.insertBefore(nd, main.childNodes[0]);
+        main.insertBefore(pelement, main.childNodes[0])
+      }
     }
     changeDisplayCSS();
   </script>
